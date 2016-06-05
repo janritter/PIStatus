@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>PIStatus - Main</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <style>
+      .container{
+        padding-top: 20px;
+      }
+     </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script>
+    var test = "Hallo";
+
+    var singlecore = -1;
+    var multicore = -1;
+    var avrg_load;
+    var uptime;
+    var temp;
+    var temp_flag;
+
+    setInterval(function(){getData(event)}, 1500);
+
+            function getData(event){
+                    // Minimal:-)
+               $.ajax({
+                    url: "dashboard/dashboard_json.php",
+                    type: "POST",
+                    success: function(data) { getDataResponse(data); }
+               });
+            }
+
+            function getDataResponse(data) {
+               // Antwort des Server ggf. verarbeiten
+               var response = $.parseJSON(data);
+               singlecore = response.singlecore;
+               multicore = response.multicore;
+               avrg_load = response.avrg_load;
+               uptime = response.uptime;
+               temp = response.temp;
+               temp_flag = response.temp_flag;
+               document.getElementById("multicore_field").innerHTML = (multicore.substr(0, ((multicore.length)-1))); //make 0.3% instead of 0.3 %
+               document.getElementById("singlecore_field").innerHTML = singlecore; //make 0.3% instead of 0.3 %
+               document.getElementById("avrg_load_field").innerHTML = avrg_load;
+               document.getElementById("uptime_field").innerHTML = uptime;
+               document.getElementById("temp_field").innerHTML = '<h3>Temp <span class="label label-'+temp_flag+'">'+temp+' C</span></h3>';
+
+               //alert (multicore);
+            }
+
+    </script>
+
+  </head>
+  <body>
+
+    <ul class="nav nav-tabs">
+      <li role="presentation" class="active"><a href="#">Dashboard</a></li>
+    </ul>
+
+<div class="container">
+  <h2><span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Temperature</h2>
+  <span id="temp_field"></span>
+  <hr>
+  <h2><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Uptime</h2>
+  <h3><span id="uptime_field"></span></h3>
+  <hr>
+  <h2><span class="glyphicon glyphicon-random" aria-hidden="true"></span> CPU Usage</h2>
+  <h3>Load <span id="avrg_load_field"></span></h3>
+  <h3>Multicore <span id="multicore_field"></span>%</h3>
+  <h3>Singlecore <span id="singlecore_field"></span>%</h3>
+  <hr>
+
+</div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+  </body>
+</html>
