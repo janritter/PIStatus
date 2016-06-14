@@ -9,6 +9,7 @@
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
     <style>
       .container{
         padding-top: 20px;
@@ -21,8 +22,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script>
-    var test = "Hallo";
-
     var singlecore = -1;
     var multicore = -1;
     var avrg_load;
@@ -56,14 +55,42 @@
                document.getElementById("uptime_field").innerHTML = uptime;
                document.getElementById("temp_field").innerHTML = '<h3>Temp <span class="label label-'+temp_flag+'">'+temp+' C</span></h3>';
 
-               //alert (multicore);
             }
+
+
+              setInterval(function(){setPushTemp()}, 1500);
+                //Last TempPush Reason
+                var lastTempPush;
+
+              function setPushTemp(){
+                  if(temp_flag==='warning' && temp_flag!==lastTempPush){
+                                  Push.create('Temperature Warning!', {
+                                      body: 'Temperature is above the point you set for warning.',
+                                      icon: {
+                                        x32: 'assets/icons/glyphicons-505-alert.png'
+                                      },
+                                      vibrate: [100],
+                                      timeout: 5000
+
+                                  });
+                  }else if(temp_flag==='danger' && temp_flag!==lastTempPush){
+                                  Push.create('Critical Temperature!', {
+                                      body: 'Temperature is above the point you set for alert.',
+                                      icon: {
+                                        x32: 'assets/icons/glyphicons-505-alert.png'
+                                      },
+                                      vibrate: [200]
+                                  });
+                  }
+                  if(temp_flag!==lastTempPush){
+                    lastTempPush = temp_flag;
+                  }
+              }
 
     </script>
 
   </head>
   <body>
-
     <ul class="nav nav-tabs">
       <li role="presentation" class="active"><a href="#">Dashboard</a></li>
     </ul>
@@ -85,6 +112,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="assets/js/push.min.js"></script>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
   </body>
