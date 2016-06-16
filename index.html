@@ -32,7 +32,7 @@
     setInterval(function(){getData(event)}, 1500);
 
             function getData(event){
-                    // Minimal:-)
+
                $.ajax({
                     url: "dashboard/dashboard_json.php",
                     type: "POST",
@@ -41,7 +41,7 @@
             }
 
             function getDataResponse(data) {
-               // Antwort des Server ggf. verarbeiten
+
                var response = $.parseJSON(data);
                singlecore = response.singlecore;
                multicore = response.multicore;
@@ -92,7 +92,8 @@
   </head>
   <body>
     <ul class="nav nav-tabs">
-      <li role="presentation" class="active"><a href="#">Dashboard</a></li>
+      <li role="presentation" class="active"><a href="index.html">Dashboard</a></li>
+      <li role="presentation"><a href="settings.php">Settings</a></li>
     </ul>
 
 <div class="container">

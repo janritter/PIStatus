@@ -1,4 +1,7 @@
 <?php
+//Require config.php
+require('../config.php');
+
 //Working for Raspberry Pi2B (Firmware Update could be required)
 $uptime = (shell_exec('uptime'));
 
@@ -7,9 +10,9 @@ $read_temp = (shell_exec('cat /sys/class/thermal/thermal_zone0/temp'));
 $temp = ($read_temp/1000);
 
 //Temp-Zones
-if($temp < 45){
+if($temp < $temp_warning_threshold){
    $temp_flag = 'success';
-}elseif ($temp < 55) {
+}elseif ($temp < $temp_danger_threshold) {
    $temp_flag = 'warning';
 }else {
    $temp_flag = 'danger';
