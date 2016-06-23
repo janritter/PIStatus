@@ -54,6 +54,9 @@
                document.getElementById("avrg_load_field").innerHTML = avrg_load;
                document.getElementById("uptime_field").innerHTML = uptime;
                document.getElementById("temp_field").innerHTML = '<h3>Temp <span class="label label-'+temp_flag+'">'+temp+' C</span></h3>';
+               document.getElementById("temp_flag").innerHTML = '<span class="label label-'+temp_flag+'">Status</span>';
+               document.getElementById("uptime_flag").innerHTML = '<span class="label label-default">Status</span>';
+               document.getElementById("cpu_flag").innerHTML = '<span class="label label-default">Status</span>';
 
             }
 
@@ -97,17 +100,42 @@
     </ul>
 
 <div class="container">
-  <h2><span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Temperature</h2>
-  <span id="temp_field"></span>
-  <hr>
-  <h2><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Uptime</h2>
-  <h3><span id="uptime_field"></span></h3>
-  <hr>
-  <h2><span class="glyphicon glyphicon-random" aria-hidden="true"></span> CPU Usage</h2>
-  <h3>Load <span id="avrg_load_field"></span></h3>
-  <h3>Multicore <span id="multicore_field"></span>%</h3>
-  <h3>Singlecore <span id="singlecore_field"></span>%</h3>
-  <hr>
+  <div class="row">
+      <div class="col-md-6"><div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Temperature <span id="temp_flag"></span></h3>
+        </div>
+        <div class="panel-body">
+          <span id="temp_field"></span>
+        </div>
+      </div>
+    </div>
+        <div class="col-md-6"><div class="panel panel-default">
+          <div class="panel-heading">
+          <h3 class="panel-title"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Uptime <span id="uptime_flag"></span></h3>
+        </div>
+        <div class="panel-body">
+          <h3><span id="uptime_field"></span></h3>
+        </div>
+      </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-6"><div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><span class="glyphicon glyphicon-random" aria-hidden="true"></span> CPU Usage <span id="cpu_flag"></span></h3>
+      </div>
+      <div class="panel-body">
+        <h3>Load <span id="avrg_load_field"></span></h3>
+        <h3>Multicore <span id="multicore_field"></span>%</h3>
+        <h3>Singlecore <span id="singlecore_field"></span>%</h3>
+      </div>
+    </div>
+  </div>
+      <div class="col-md-6">
+</div>
+</div>
 
 </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
